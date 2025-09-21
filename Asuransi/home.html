@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home - Asuransi Kita</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f5f7fa;
+      color: #333;
+      line-height: 1.5;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+
+    /* Navbar */
+    .navbar {
+      width: 100%;
+      background: #1f2937;
+      padding: 16px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .navbar h1 { color: white; font-size: 1.5rem; }
+    .navbar .right { display: flex; align-items: center; }
+    .navbar .magical-btn {
+      background: linear-gradient(90deg,#ff6a00,#ee0979);
+      color: white; border: none; padding: 8px 18px; border-radius: 8px;
+      font-weight: bold; cursor: pointer; text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .navbar .magical-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    }
+
+    /* Auth Links */
+    #authLinks { margin-left: 16px; }
+    #authLinks a, #authLinks button {
+      margin-left: 10px; padding: 8px 16px; border-radius: 4px;
+      font-weight: 600; text-decoration: none; border: none; cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    #authLinks a.login-btn { background: #2563eb; color: #fff; }
+    #authLinks a.signup-btn { background: #10b981; color: #fff; }
+    #authLinks a:hover, #authLinks button:hover { opacity: 0.9; transform: translateY(-2px); }
+
+    /* Produk grid */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px; margin-top: 40px;
+    }
+    .product-card {
+      background: #fff; border: 1px solid #e5e7eb; border-radius: 12px;
+      overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex; flex-direction: column;
+    }
+    .product-card:hover { transform: translateY(-5px); box-shadow: 0 6px 16px rgba(0,0,0,0.15); }
+    .product-card img { width: 100%; height: 160px; object-fit: cover; }
+    .product-card .content { padding: 16px; }
+    .product-card h3 { font-size: 1.25rem; color: #1f2937; margin-bottom: 8px; }
+    .product-card p { font-size: 0.95rem; color: #4b5563; }
+
+    /* Section Iklan */
+    .iklan { margin: 60px 0; text-align: center; transition: opacity 0.8s ease, transform 0.8s ease; }
+    .iklan.hide { opacity: 0; transform: translateY(20px); pointer-events: none; }
+    .iklan-box {
+      background: linear-gradient(90deg,#2563eb,#1e40af);
+      color: white; padding: 40px 20px; border-radius: 16px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+      animation: fadeInUp 0.8s ease;
+    }
+    .iklan-box img { max-width: 120px; margin-bottom: 15px; }
+    .iklan-box h2 { font-size: 1.8rem; margin-bottom: 12px; }
+    .iklan-box h2 span { color: #fbbf24; }
+    .iklan-box p { font-size: 1rem; margin-bottom: 20px; }
+    .cta-btn {
+      background: #fbbf24; color: #1f2937;
+      padding: 12px 24px; border-radius: 8px; font-weight: bold;
+      text-decoration: none; transition: all 0.3s ease;
+    }
+    .cta-btn:hover { background: #f59e0b; transform: scale(1.05); }
+
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Section Promo */
+    .promo {
+      margin: 60px 0; padding: 40px; background: #fff;
+      border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .promo h2 { font-size: 1.8rem; color: #1f2937; margin-bottom: 16px; text-align:center; }
+    .promo p { margin-bottom: 16px; }
+    .promo ul { margin: 0 0 20px 20px; }
+    .promo li { margin-bottom: 8px; }
+
+    /* Contact Section */
+    .contact {
+      background: #1f2937;
+      color: white;
+      padding: 50px 20px;
+      margin-top: 60px;
+    }
+    .contact h2 { text-align:center; margin-bottom: 20px; font-size:1.5rem; }
+    .contact p { text-align:center; margin-bottom: 10px; }
+    .contact .info { max-width:600px; margin:0 auto; text-align:center; }
+    .contact a { color: #fbbf24; text-decoration: none; font-weight: bold; }
+    .contact a:hover { text-decoration: underline; }
+    .contact img { width: 30px; margin: 0 5px; vertical-align: middle; }
+    @media (max-width: 600px) {
+      .navbar { flex-direction: column; gap: 10px; }
+      #authLinks { margin-left: 0; }
+    }
+
+        /* Partnership Section */
+        /* Partnership Section */
+    .partners {
+      margin: 60px 0;
+      text-align: center;
+    }
+    .partners h2 {
+      font-size: 1.6rem;
+      color: #1f2937;
+      margin-bottom: 24px;
+    }
+    .partner-logos {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+    
+    
+
+    .partner-logos img {
+  max-width: 140px;
+  max-height: 80px; /* batasi tinggi biar rapi */
+  height: auto;
+  width: auto;
+  object-fit: contain; /* jaga proporsi gambar */
+}
+
+
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <h1>Asuransi Kita</h1>
+    <div class="right">
+      <div id="authLinks"></div>
+    </div>
+  </div>
+
+  <!-- Konten -->
+  <div class="container">
+    <section class="produk">
+      <center><h2 style="font-size:1.75rem; color:#374151; margin-bottom: 20px;">Produk Asuransi</h2></center>
+      <div class="product-grid">
+        <div class="product-card" onclick="window.location.href='Asurasnikesehatan.html'">
+          <img src="assets/kesehatan.jpg" alt="Asuransi Kesehatan">
+          <div class="content">
+            <h3>Asuransi Kesehatan</h3>
+            <p>Perlindungan biaya medis & rawat inap</p>
+          </div>
+        </div>
+        <div class="product-card" onclick="window.location.href='Asuransijiwa.html'">
+          <img src="assets/jiwa.jpg" alt="Asuransi Jiwa">
+          <div class="content">
+            <h3>Asuransi Jiwa</h3>
+            <p>Perlindungan finansial keluarga</p>
+          </div>
+        </div>
+        <div class="product-card" onclick="window.location.href='Asuransimobil.html'">
+          <img src="assets/Kendaraan.jpg" alt="Asuransi Kendaraan">
+          <div class="content">
+            <h3>Asuransi Kendaraan</h3>
+            <p>Perlindungan mobil & motor</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Iklan (hanya untuk non-login) -->
+    <section class="iklan" id="iklanSection">
+      <div class="iklan-box">
+
+        <h2>✨ Lindungi Masa Depan Anda Bersama <span>Asuransi Kita</span></h2>
+        <p>
+          Dengan premi terjangkau, proses mudah, dan klaim cepat —  
+          kami hadir untuk memberikan rasa aman bagi Anda dan keluarga tercinta.
+        </p>
+        <a href="signup.html" class="cta-btn">Dapatkan Perlindungan Sekarang</a>
+      </div>
+    </section>
+
+    <!-- Section Promo (hanya untuk login) -->
+    <section class="promo" id="promoSection" style="display:none;">
+      <h2>Asuransi Kita – Perlindungan Menyeluruh untuk Hidup Lebih Tenang</h2>
+      <p>Di tengah ketidakpastian, satu hal yang pasti: Asuransi Kita hadir untuk melindungi Anda dan keluarga.</p>
+      <p>Dengan layanan terpercaya, premi terjangkau, dan manfaat maksimal, kami menyediakan perlindungan lengkap dalam tiga produk utama:</p>
+
+      <h3>Asuransi Kendaraan Kita</h3>
+      <p>Perjalanan Anda lebih aman bersama kami. Lindungi mobil dan motor dari risiko kecelakaan, kerusakan, hingga kehilangan.</p>
+      <ul>
+        <li>✅ Proteksi All Risk & TLO (Total Loss Only)</li>
+        <li>✅ Bengkel resmi dan rekanan terpercaya</li>
+        <li>✅ Layanan darurat 24 jam</li>
+        <li>✅ Proses klaim cepat dan transparan</li>
+      </ul>
+
+      <h3> Asuransi Jiwa Kita</h3>
+      <p>Hidup penuh dengan kejutan, tapi masa depan keluarga tetap bisa terjamin.</p>
+      <ul>
+        <li>✅ Perlindungan finansial keluarga</li>
+        <li>✅ Santunan jiwa & manfaat investasi</li>
+        <li>✅ Rider tambahan sesuai kebutuhan</li>
+        <li>✅ Premi fleksibel</li>
+      </ul>
+
+      <h3> Asuransi Kesehatan Kita</h3>
+      <p>Kesehatan adalah harta tak ternilai. Dengan Asuransi Kesehatan Kita, biaya rumah sakit dan perawatan tak lagi jadi beban.</p>
+      <ul>
+        <li>✅ Jaringan rumah sakit luas</li>
+        <li>✅ Rawat inap, rawat jalan, check-up</li>
+        <li>✅ Cashless claim</li>
+        <li>✅ Layanan medis darurat 24/7</li>
+      </ul>
+    </section>
+  </div>
+
+  <!-- Contact Section -->
+  <section class="contact">
+    <h2> Hubungi Kami</h2>
+    <div class="info">
+      <p><strong>Alamat:</strong> Jl.Citra Raya no12 , Jakarta Barat</p>
+      <p><strong>Email:</strong> <a href="mailto:cs@asuransikita.com">cs@asuransikita.com</a></p>
+      <p><strong>Telepon:</strong> (021) 1234 5678</p>
+      <p>
+        <a href="#"><img src="assets/Facebook_.png" alt="Facebook"></a>
+        <a href="#"><img src="assets/instagram.png" alt="Instagram"></a>
+        <a href="#"><img src="assets/twitwer.png" alt="Twitter"></a>
+      </p>
+    </div>
+  </section>
+
+      <!-- Section Partnership -->
+    <section class="partners">
+      <h2>Partner Kami</h2>
+      <div class="partner-logos">
+        <img src="assets/abda.webp" alt="Partner 1">
+        <img src="assets/asuransi-fwd.jpg" alt="Partner 2">
+        <img src="assets/axa.png" alt="Partner 3">
+        <img src="assets/prudential.png" alt="Partner 4">
+      </div>
+    </section>
+
+
+  <script>
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    const authLinks = document.getElementById('authLinks');
+    const iklanSection = document.getElementById('iklanSection');
+    const promoSection = document.getElementById('promoSection');
+
+    if (!user) {
+      // Tampilkan login/signup & iklan
+      authLinks.innerHTML = `
+        <a href="index.html" class="login-btn">Login</a>
+        <a href="signup.html" class="signup-btn">Sign Up</a>
+      `;
+      iklanSection.style.display = "block";
+      promoSection.style.display = "none";
+    } else {
+      // Tampilkan user info, sembunyikan iklan, munculkan promo
+      authLinks.innerHTML = `
+        <span style="font-weight:600; color:white; margin-left:10px;">
+          Halo, <strong>${user.fullname}</strong>!
+        </span>
+        <button onclick="logout()" style="background:#ef4444; color:#fff; border-radius:4px; padding:8px 16px;">Logout</button>
+        <a href="history.html" class="signup-btn" style="text-decoration:none;">History</a>
+      `;
+      iklanSection.style.display = "none";
+      promoSection.style.display = "block";
+    }
+
+    function logout() {
+      localStorage.removeItem('currentUser');
+      location.reload();
+    }
+  </script>
+</body>
+</html>

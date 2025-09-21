@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pembelian Asuransi Mobil</title>
+  <style>
+    :root {
+      --primary: #4A90E2; /* Biru soft elegan */
+      --accent: #3B82F6;  /* Biru aksen */
+      --bg: #f9fafb;
+      --card-bg: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 20px;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 32px;
+      background: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border-radius: 12px;
+    }
+    .navbar a {
+      margin: 0 12px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 600;
+    }
+    .navbar a.active {
+      color: var(--primary);
+    }
+
+    .banner {
+      margin: 24px 0;
+      background: linear-gradient(135deg, var(--accent), var(--primary));
+      color: white;
+      padding: 40px 20px;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    .banner h1 {
+      font-size: 2.2rem;
+      margin-bottom: 12px;
+    }
+    .banner p {
+      font-size: 1.1rem;
+    }
+
+    .card-form {
+      background: var(--card-bg);
+      padding: 32px;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      max-width: 600px;
+      margin: auto;
+    }
+    .card-form h2 {
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-bottom: 16px;
+      text-align:center;
+    }
+    label {
+      display:block;
+      margin-top:16px;
+      font-weight: 600;
+    }
+    input, select {
+      width:100%;
+      padding:12px;
+      margin-top:8px;
+      border:1px solid #d1d5db;
+      border-radius:10px;
+      font-size:1rem;
+      transition: border-color .3s;
+    }
+    input:focus, select:focus {
+      border-color: var(--primary);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(74,144,226,0.2);
+    }
+    .btn-primary {
+      margin-top:24px;
+      background: var(--primary);
+      color: white;
+      border:none;
+      padding:14px;
+      border-radius:10px;
+      font-size:1rem;
+      font-weight:600;
+      width:100%;
+      cursor:pointer;
+      transition: background .3s, transform .2s;
+    }
+    .btn-primary:hover {
+      background: #60A5FA; /* Biru lembut saat hover */
+      transform: translateY(-2px);
+    }
+
+    #hasil {
+      margin-top: 20px;
+      padding: 16px;
+      background: #ecfdf5;
+      border-radius: 10px;
+      color: var(--primary);
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .back-btn {
+      display:block;
+      margin-top:20px;
+      text-align:center;
+      text-decoration:none;
+      color: var(--primary);
+      font-weight:600;
+    }
+
+    @media (max-width: 600px) {
+      .banner h1 { font-size:1.6rem; }
+      .card-form { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <h1><div class="logo">Asuransi Kita</div></h1> 
+    <div class="menu">
+      <a href="home.html">Home</a>
+    </div>
+  </nav>
+
+  <div class="banner">
+    <h1>Smart Car Insurance</h1>
+    <p>Perlindungan komprehensif untuk kendaraan Anda</p>
+  </div>
+
+  <div class="card-form">
+    <h2>Pembelian Asuransi Mobil</h2>
+    <form id="formMobil">
+      <label>Merk Mobil</label><input type="text" id="merk" required>
+      <label>Jenis Mobil</label><input type="text" id="jenis" required>
+      <label>Tahun Pembuatan</label><input type="number" id="tahun" min="1900" max="2025" required>
+      <label>Harga Mobil (Rp)</label><input type="number" id="harga" required>
+      <label>Nomor Plat</label><input type="text" id="plat" required>
+      <label>Nomor Mesin</label><input type="text" id="mesin" required>
+      <label>Nomor Rangka</label><input type="text" id="rangka" required>
+      <label>Nama Pemilik</label><input type="text" id="pemilik" required>
+
+      <label>Pilih Kupon Diskon</label>
+      <select id="diskon">
+        <option value="0">Tidak Ada Promo</option>
+        <option value="0.1">Member baru Diskon 10%</option>
+        <option value="0.2">Bulan september Diskon 20%</option>
+    <!--   <option value="0.3">Diskon 30%</option> -->
+      </select>
+
+      <button type="button" class="btn-primary" onclick="hitungPremi()">Hitung Premi</button>
+      <div id="hasil"></div>
+      <button type="submit" class="btn-primary">Checkout</button>
+    </form>
+
+    <a href="home.html" class="back-btn">← Kembali ke Home</a>
+  </div>
+
+  <script>
+    const tahunSekarang = new Date().getFullYear();
+    function hitungPremi() {
+      const harga = parseFloat(document.getElementById('harga').value);
+      const tahun = parseInt(document.getElementById('tahun').value);
+      const diskon = parseFloat(document.getElementById('diskon').value);
+      const umur = tahunSekarang - tahun;
+
+      let premi = 0;
+      if (umur >= 0 && umur <= 3) premi = 0.025 * harga;
+      else if (umur > 3 && umur <= 5 && harga < 200000000) premi = 0.04 * harga;
+      else if (umur > 3 && umur <= 5 && harga >= 200000000) premi = 0.03 * harga;
+      else if (umur > 5) premi = 0.05 * harga;
+
+      const potongan = premi * diskon;
+      const totalPremi = premi - potongan;
+
+      localStorage.setItem("premi", totalPremi);
+      localStorage.setItem("produk", "Asuransi Mobil");
+
+      document.getElementById("hasil").innerHTML = `
+        Premi Asli: Rp ${premi.toLocaleString("id-ID")}<br>
+        Diskon: Rp ${potongan.toLocaleString("id-ID")}<br>
+        <strong>Total Bayar: Rp ${totalPremi.toLocaleString("id-ID")}</strong>
+      `;
+    }
+
+    document.getElementById("formMobil").addEventListener("submit", function(e){
+      e.preventDefault();
+      alert("Checkout berhasil!");
+      window.location.href = "Checkout.html";
+    });
+  </script>
+</body>
+</html>

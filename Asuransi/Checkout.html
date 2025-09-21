@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout</title>
+  <style>
+    body {
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+  background: #f9fafb;
+  margin: 0;
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+}
+
+.card {
+  background: #fff;
+  padding: 32px;
+  border-radius: 16px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+  animation: fadeInUp 0.8s ease;
+}
+
+h2 {
+  text-align: center;
+  color: #2563eb;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.info {
+  background: #eff6ff;
+  padding: 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  color: #1e40af;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+  font-weight: 500;
+  color: #374151;
+}
+
+select, button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 12px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  font-size: 1rem;
+}
+
+select:focus {
+  outline: 2px solid #2563eb;
+  border-color: #2563eb;
+}
+
+button {
+  background: linear-gradient(90deg, #2563eb, #1e40af);
+  color: white;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 12px rgba(37, 99, 235, 0.3);
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Checkout</h2>
+    <div class="info">Premi yang harus dibayar: <span id="premiValue">Rp 0</span></div>
+    <label>Pilih Metode Pembayaran</label>
+    <select id="metode">
+      <option value="">--Pilih--</option>
+      <option value="Transfer Bank">Transfer Bank</option>
+      <option value="E-Wallet">E-Wallet</option>
+      <option value="Kartu Kredit">Kartu Kredit</option>
+    </select>
+    <button onclick="bayar()">Bayar</button>
+  </div>
+
+  <script>
+    const premi = localStorage.getItem("premi");
+    const produk = localStorage.getItem("produk");
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+    // tampilkan premi
+    if (premi && produk) {
+      document.getElementById("premiValue").innerText = 
+        produk + " - Rp " + parseInt(premi).toLocaleString("id-ID");
+    }
+
+    function bayar() {
+      if (!currentUser) {
+        alert("Silakan login terlebih dahulu!");
+        return;
+      }
+      const metode = document.getElementById("metode").value;
+      if (!metode) { 
+        alert("Pilih metode pembayaran!"); 
+        return; 
+      }
+
+      // buat key khusus sesuai user
+      const historyKey = `historyAsuransi_${currentUser.username || currentUser.email || currentUser.fullname}`;
+      let history = JSON.parse(localStorage.getItem(historyKey)) || [];
+
+      // tambahkan transaksi baru
+      history.push({ 
+        produk: produk, 
+        jenis: metode, 
+        tanggal: new Date().toLocaleDateString("id-ID"), 
+        harga: premi, 
+        status: "Lunas" 
+      });
+
+      // simpan ke localStorage sesuai user
+      localStorage.setItem(historyKey, JSON.stringify(history));
+
+      alert("Pembayaran berhasil!");
+      window.location.href = "history.html";
+    }
+  </script>
+</body>
+</html>

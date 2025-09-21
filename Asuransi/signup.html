@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sign Up —Asuransi Kita</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="card">
+    <h1>Sign Up</h1>
+    <form id="signupForm" novalidate>
+      <div class="field">
+        <label for="signupEmail">Email</label>
+        <input id="signupEmail" name="email" type="email" required />
+        <small class="error" id="signupEmailError"></small>
+      </div>
+
+      <div class="field password-field">
+        <label for="signupPassword">Kata Sandi</label>
+        <div class="password-wrapper">
+          <input id="signupPassword" name="password" type="password" required />
+          <button type="button" class="toggle-password" data-target="signupPassword">👁</button>
+        </div>
+        <small class="error" id="signupPasswordError"></small>
+      </div>
+
+      <div class="field password-field">
+        <label for="signupConfirm">Konfirmasi Kata Sandi</label>
+        <div class="password-wrapper">
+          <input id="signupConfirm" name="confirm" type="password" required />
+          <button type="button" class="toggle-password" data-target="signupConfirm">👁</button>
+        </div>
+        <small class="error" id="signupConfirmError"></small>
+      </div>
+
+      <div class="field">
+        <label for="fullName">Nama Lengkap</label>
+        <input id="fullName" name="fullname" type="text" required />
+        <small class="error" id="fullNameError"></small>
+      </div>
+
+      <div class="field">
+        <label for="phone">Nomor Handphone</label>
+        <input id="phone" name="phone" type="tel" required />
+        <small class="error" id="phoneError"></small>
+      </div>
+
+      <div class="actions">
+        <button type="submit" class="btn">Daftar</button>
+        <a href="index.html" class="btn ghost">Kembali ke Login</a>
+      </div>
+
+      <div id="signupMessage" class="message" role="status"></div>
+    </form>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

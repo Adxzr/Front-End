@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pembelian Asuransi Jiwa — Asuransi Kita</title>
+  <style>
+    :root {
+      --primary: #c62828; /* merah bold */
+      --accent: #b71c1c;  /* merah maroon pekat */
+      --bg: #fff5f5;      
+      --card-bg: #ffffff;
+      --text: #2d2d2d;
+      --muted: #777;
+      --highlight: #ffcdd2; /* pink highlight */
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 20px;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 32px;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border-radius: 12px;
+    }
+    .navbar a {
+      margin: 0 12px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 600;
+    }
+    .navbar a.active {
+      color: var(--primary);
+    }
+
+    .banner {
+      margin: 24px 0;
+      background: linear-gradient(135deg, var(--accent), var(--primary));
+      color: white;
+      padding: 40px 20px;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      font-family: 'Georgia', serif;
+    }
+    .banner h1 {
+      font-size: 2rem;
+      margin-bottom: 12px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    .banner p {
+      font-size: 1.1rem;
+      font-style: italic;
+      color: #ffebee;
+    }
+
+    .card-form {
+      background: var(--card-bg);
+      padding: 32px;
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+      max-width: 600px;
+      margin: auto;
+      border-top: 5px solid var(--primary);
+    }
+    .card-form h2 {
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-bottom: 16px;
+      text-align:center;
+      font-weight: bold;
+    }
+    label {
+      display:block;
+      margin-top:16px;
+      font-weight: 600;
+    }
+    input, select {
+      width:100%;
+      padding:12px;
+      margin-top:8px;
+      border:1px solid #ccc;
+      border-radius:10px;
+      font-size:1rem;
+      transition: border-color .3s, box-shadow .3s;
+    }
+    input:focus, select:focus {
+      border-color: var(--primary);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(198,40,40,0.25);
+    }
+    .btn-primary {
+      margin-top:24px;
+      background: var(--primary);
+      color: #fff;
+      border:none;
+      padding:14px;
+      border-radius:10px;
+      font-size:1rem;
+      font-weight:600;
+      width:100%;
+      cursor:pointer;
+      transition: background .3s, transform .2s;
+    }
+    .btn-primary:hover {
+      background: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    }
+
+    #hasil {
+      margin-top: 20px;
+      padding: 16px;
+      background: var(--highlight);
+      border-radius: 10px;
+      color: var(--text);
+      font-weight: 600;
+      text-align: center;
+      border: 1px solid var(--accent);
+    }
+
+    .back-btn {
+      display:block;
+      margin-top:20px;
+      text-align:center;
+      text-decoration:none;
+      color: var(--primary);
+      font-weight:600;
+      padding:10px;
+      border-radius:8px;
+      border: 1px solid var(--primary);
+      transition: background .3s, color .3s;
+    }
+    .back-btn:hover {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    @media (max-width: 600px) {
+      .banner h1 { font-size:1.5rem; }
+      .card-form { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <h1><div class="logo">Asuransi Kita</div></h1> 
+    <div class="menu">
+      <a href="home.html">Home</a>
+    </div>
+  </nav>
+
+  <div class="banner">
+    <h1>Life Insurance Protection</h1>
+    <p>Perlindungan finansial penuh dengan komitmen kuat</p>
+  </div>
+
+  <div class="card-form">
+    <h2>Pembelian Asuransi Jiwa</h2>
+    <form id="formJiwa">
+      <label>Nama Lengkap</label><input type="text" id="nama" required>
+      <label>Tanggal Lahir</label><input type="date" id="lahir" required>
+      <label>Besaran Pertanggungan</label>
+      <select id="pertanggungan" required>
+        <option value="">--Pilih--</option>
+        <option value="1000000000">Rp1.000.000.000</option>
+        <option value="2000000000">Rp2.000.000.000</option>
+        <option value="3500000000">Rp3.500.000.000</option>
+        <option value="5000000000">Rp5.000.000.000</option>
+        <option value="10000000000">Rp10.000.000.000</option>
+      </select>
+
+      <label>Pilih Promo</label>
+      <select id="promo">
+        <option value="0">Tidak Ada Promo</option>
+        <option value="0.1">Member baru Diskon 10%</option>
+        <option value="0.2">Promo September Diskon 20%</option>
+      </select>
+
+      <button type="button" class="btn-primary" onclick="hitungPremi()">Hitung Premi</button>
+      <div id="hasil"></div>
+      <button type="submit" class="btn-primary">Checkout</button>
+    </form>
+
+    <a href="home.html" class="back-btn">← Kembali ke Home</a>
+  </div>
+
+  <script>
+    function hitungPremi() {
+      const lahir = new Date(document.getElementById('lahir').value);
+      const today = new Date();
+      let umur = today.getFullYear() - lahir.getFullYear();
+      if (today.getMonth() < lahir.getMonth() || 
+          (today.getMonth() === lahir.getMonth() && today.getDate() < lahir.getDate())) {
+        umur--;
+      }
+
+      const t = parseInt(document.getElementById('pertanggungan').value);
+      const promo = parseFloat(document.getElementById('promo').value) || 0;
+
+      let m = 0;
+      if (umur <= 30) m = 0.002;
+      else if (umur <= 50) m = 0.004;
+      else m = 0.01;
+
+      let premi = m * t;
+      const diskon = premi * promo;
+      const totalPremi = premi - diskon;
+
+      localStorage.setItem("premi", totalPremi);
+      localStorage.setItem("produk", "Asuransi Jiwa");
+
+      document.getElementById("hasil").innerHTML = `
+        Premi Asli: Rp ${premi.toLocaleString("id-ID")}<br>
+        Diskon: Rp ${diskon.toLocaleString("id-ID")}<br>
+        <strong>Total Bayar: Rp ${totalPremi.toLocaleString("id-ID")}</strong>
+      `;
+    }
+
+    document.getElementById("formJiwa").addEventListener("submit", function(e){
+      e.preventDefault();
+      alert("Checkout berhasil!");
+      window.location.href = "Checkout.html";
+    });
+  </script>
+
+</body>
+</html>

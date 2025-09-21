@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>History Pembelian - Asuransi Kita</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fa;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #1f2937;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    table th, table td {
+      border: 1px solid #e5e7eb;
+      padding: 12px;
+      text-align: center;
+    }
+    table th {
+      background: #1f2937;
+      color: white;
+    }
+    .status-lunas {
+      color: #10b981;
+      font-weight: bold;
+    }
+    .status-belum {
+      color: #ef4444;
+      font-weight: bold;
+    }
+    .delete-btn {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 8px;
+      background: #ef4444;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .delete-btn:hover {
+      background: #b91c1c;
+      box-shadow: 0 2px 6px rgba(239,68,68,0.4);
+    }
+    .no-data {
+      text-align: center;
+      color: #6b7280;
+      margin-top: 20px;
+    }
+    /* Style tombol back home */
+    .back-btn {
+      display: block;
+      margin: 30px auto 10px;
+      padding: 10px 20px;
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+      text-decoration: none;
+      text-align: center;
+      width: fit-content;
+    }
+    .back-btn:hover {
+      background: #1d4ed8;
+      transform: scale(1.05);
+      box-shadow: 0 2px 6px rgba(37,99,235,0.4);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📜 History Pembelian</h1>
+    <table id="historyTable">
+      <thead>
+        <tr>
+          <th>Produk</th>
+          <th>Jenis Pembayaran</th>
+          <th>Tanggal</th>
+          <th>Harga</th>
+          <th>Status</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <p class="no-data" id="noDataMsg" style="display:none;">Belum ada transaksi.</p>
+
+    <!-- Tombol Back Home -->
+    <a href="home.html" class="back-btn">⬅️ Back Home</a>
+  </div>
+
+  <script>
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    const tableBody = document.querySelector("#historyTable tbody");
+    const noDataMsg = document.getElementById("noDataMsg");
+
+    if (!currentUser) {
+      alert("Silakan login terlebih dahulu!");
+      window.location.href = "index.html";
+    } else {
+      const historyKey = `historyAsuransi_${currentUser.username || currentUser.email || currentUser.fullname}`;
+      const history = JSON.parse(localStorage.getItem(historyKey)) || [];
+
+      if (history.length === 0) {
+        noDataMsg.style.display = "block";
+      } else {
+        history.forEach((item, index) => {
+          const row = `
+            <tr>
+              <td>${item.produk}</td>
+              <td>${item.jenis}</td>
+              <td>${item.tanggal}</td>
+              <td>Rp ${parseInt(item.harga).toLocaleString("id-ID")}</td>
+              <td class="${item.status === 'Lunas' ? 'status-lunas' : 'status-belum'}">
+                ${item.status}
+              </td>
+              <td>
+                <button class="delete-btn" onclick="hapusTransaksi(${index})">Hapus</button>
+              </td>
+            </tr>
+          `;
+          tableBody.innerHTML += row;
+        });
+      }
+    }
+
+    function hapusTransaksi(index) {
+      const historyKey = `historyAsuransi_${currentUser.username || currentUser.email || currentUser.fullname}`;
+      let history = JSON.parse(localStorage.getItem(historyKey)) || [];
+
+      if (confirm("Yakin ingin menghapus transaksi ini?")) {
+        history.splice(index, 1);
+        localStorage.setItem(historyKey, JSON.stringify(history));
+        location.reload();
+      }
+    }
+  </script>
+</body>
+</html>
